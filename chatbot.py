@@ -43,7 +43,7 @@ async def search_embeddings(db, query_embedding, top_n, collection_name=collecti
     return results
 
 async def query_database(query, top_n=1):
-    async with Surreal("ws://localhost:8000/rpc") as db:
+    async with Surreal("wss://surrealdb.lacchinh.com/rpc") as db:
         await db.signin({"user": DB_USER, "pass": DB_PASSWORD})
         await db.use("test", "test")
         texts = []
@@ -91,7 +91,7 @@ async def run_conversation(messages,tools):
 
     while has_tool_calls:
         response = client.chat.completions.create(
-            model="gpt-4-turbo-preview",
+            model="gpt-4o-mini",
             messages=messages,
             tools=tools,
             tool_choice="auto",
